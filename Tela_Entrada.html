@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peladas do G8 - Acesso</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212; /* Fundo escuro elegante */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .btn-entrar {
+            padding: 15px 35px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-entrar:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">⚽ Peladas do G8</div>
+
+    <!-- Este botão vai disparar o tamanho mobile -->
+    <button class="btn-entrar" onclick="iniciarApp()">
+        ENTRAR NO SISTEMA
+    </button>
+
+    <p>Otimizado para visualização mobile</p>
+
+    <script>
+        function iniciarApp() {
+            // Definições de tamanho mobile (iPhone 12/13)
+            const largura = 390;
+            const altura = 844;
+            
+            // Centralizar a janelinha no monitor do PC
+            const topo = (window.screen.height / 2) - (altura / 2);
+            const esquerda = (window.screen.width / 2) - (largura / 2);
+
+            // Abre o seu arquivo do sistema (AJUSTE O NOME DO ARQUIVO ABAIXO)
+            window.open(
+                'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', // <--- Coloque aqui o nome do seu arquivo atual
+                'PeladasG8', 
+                `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
+            );
+        }
+    </script>
+</body>
+</html>
