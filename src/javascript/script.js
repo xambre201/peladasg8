@@ -6,6 +6,9 @@ document.getElementById('open_btn').addEventListener('click', function () {
             // 1. Verifica se a função está sendo chamada
             console.log("Botão logout clicado");
 
+            // Limpa registros de login para que outra pessoa não use o mesmo PC/Celular
+            localStorage.clear();
+            sessionStorage.clear();
             // 2. Tenta fechar a janela
             window.close();
 
@@ -17,3 +20,4 @@ document.getElementById('open_btn').addEventListener('click', function () {
                 }
             }, 500);
         }
+
