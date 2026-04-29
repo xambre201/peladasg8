@@ -77,5 +77,40 @@
             );
         }
     </script>
+    <!-- Botão de Sair abaixo do botão de Entrar -->
+<button class="btn-sair" onclick="sairDaTela()">
+    SAIR
+</button>
+
+<style>
+    .btn-sair {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: transparent;
+        color: #888;
+        border: 1px solid #444;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .btn-sair:hover {
+        color: #ff4d4d;
+        border-color: #ff4d4d;
+    }
+</style>
+
+<script>
+    function sairDaTela() {
+        // Tenta fechar, se não conseguir, redireciona
+        window.close();
+        setTimeout(() => {
+            window.location.href = "https://google.com";
+        }, 500);
+    }
+</script>
+
+    
 </body>
 </html>
