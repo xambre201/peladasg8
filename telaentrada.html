@@ -1,68 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-br"> 
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="src/css/styles.css">
-     <!-- 1. Carrega o Supabase primeiro (SEM DEFER) -->
-   <!--  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
-     <script type="module">
-      // Importa a biblioteca diretamente do CDN como um módulo
-      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-    
-      const SUPABASE_URL = 'SUA_URL_AQUI'
-      const SUPABASE_KEY = 'SUA_ANON_KEY_AQUI'
-    
-      // Inicializa o cliente
-      const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY)
-    
-      // Agora suas funções podem usar o supabaseClient normalmente
-      window.handleLogin = async function() {
-          const email = document.getElementById('email').value;
-          const password = document.getElementById('password').value;
-          
-          const { data, error } = await supabaseClient.auth.signInWithPassword({
-              email: email,
-              password: password,
-          });
-    
-          if (error) alert(error.message);
-          else abrirJanelaSistema();
-      }
-    </script>
-    
-    
-    
-    <!-- 2. Carrega o seu script depois (TAMBÉM SEM DEFER PARA TESTAR) -->
-    <script src="src/javascript/script.js"></script>
-    
     <title>Peladas do G8 - Acesso</title>
-    <style>
-     
-    </style>
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="src/css/styles.css">
 </head>
 <body>
 
     <div class="logo">⚽ Peladas do G8</div>
 
     <div id="login-container">
-      <input type="email" id="email" placeholder="E-mail" required>
-      <input type="password" id="password" placeholder="Senha" required>
-      
-      <button class="btn-entrar" onclick="handleLogin()">
-          ENTRAR NO SISTEMA
-      </button>
-       <div id="message" style="margin-top: 10px; color: #ff4d4d; font-size: 14px;"></div>
-     </div>
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="password" id="password" placeholder="Senha" required>
+        
+        <!-- Chamamos a função com window. para garantir que o navegador a encontre -->
+        <button class="btn-entrar" onclick="window.handleLogin()">
+            ENTRAR NO SISTEMA
+        </button>
+        <div id="message" style="margin-top: 10px; color: #ff4d4d; font-size: 14px;"></div>
+    </div>
 
+    <button class="btn-sair" onclick="window.sairDaTela()">SAIR</button>
 
-    
-    <p>Otimizado para visualização mobile</p>
+    <!-- O segredo: usamos o type="module" para o Supabase moderno -->
+    <script type="module">
+        // 1. Importa a biblioteca corretamente
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-    <!-- Botão de Sair abaixo do botão de Entrar -->
-    <button class="btn-sair" onclick="sairDaTela()">
-        SAIR
-    </button>
-    
+        // 2. Suas credenciais (COLOQUE AS QUE VOCÊ ACHOU NO LEGACY)
+        const SUPABASE_URL = 'SUA_URL_AQUI';
+        const SUPABASE_KEY = 'SUA_ANON_KEY_AQUI';
+
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // 3. Tornamos a função global para o botão 'onclick' funcionar
+        window.handleLogin = async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                    messageDiv.textContent = "Erro: " + error.message;
+                } else {
+                    messageDiv.style.color = "#28a745";
+                    messageDiv.textContent = "Login OK! Abrindo...";
+                    abrirJanelaSistema();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Falha na conexão.");
+            }
+        }
+
+        function abrirJanelaSistema() {
+            const largura = 390;
+            const altura = 844;
+            const topo = (screen.height / 2) - (altura / 2);
+            const esquerda = (screen.width / 2) - (largura / 2);
+
+            window.open(
+                'https://github.io', 
+                'PeladasG8', 
+                `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
+            );
+        }
+
+        window.sairDaTela = function() {
+            window.close();
+            setTimeout(() => { window.location.href = "https://google.com"; }, 500);
+        }
+    </script>
 </body>
 </html>
