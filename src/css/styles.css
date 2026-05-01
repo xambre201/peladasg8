@@ -126,5 +126,35 @@ nav li a:hover{
         color: #ff4d4d;
         border-color: #ff4d4d;
     }
+ /* Container centralizado */
+  #login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px; /* Limita a largura em telas grandes */
+    margin: 0 auto;   /* Centraliza o container na página */
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
+  /* Estilização dos Inputs */
+  #login-container input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px; /* Espaçamento entre os campos */
+    border: 1px solid #ccc;
+    border-radius: 8px;  /* Bordas arredondadas */
+    font-size: 16px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  /* Efeito de foco nos inputs */
+  #login-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
 
