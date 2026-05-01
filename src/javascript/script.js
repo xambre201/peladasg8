@@ -1,52 +1,36 @@
-document.getElementById('open_btn').addEventListener('click', function () {
-    document.getElementById('sidebar').classList.toggle('open-sidebar');
-});
-
-
-// Executa a função assim que a página terminar de carregar
-document.addEventListener('DOMContentLoaded', carregarUsuario);
-
-// Configurações do seu projeto Supabase
-const SUPABASE_URL = 'https://supabase.co';
-const SUPABASE_KEY = 'sb_secret_HwUaSmOFMUMXSwz78BU3Bg_BlxST2KI'; // Use a chave "anon public"
+// 1. AS CONFIGURAÇÕES DEVEM VIR PRIMEIRO DE TUDO
+const SUPABASE_URL = 'https://SUA_URL_AQUI.supabase.co'; // Verifique se a sua URL está completa
+const SUPABASE_KEY = 'SUA_CHAVE_ANON_AQUI'; 
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-async function iniciarApp() {
-    // Exemplo: Verificar se o usuário está logado antes de abrir a janela
-    const { data: { session } } = await supabaseClient.auth.getSession();
+// 2. AGORA AS FUNÇÕES E EVENTOS
+document.getElementById('open_btn')?.addEventListener('click', function () {
+    document.getElementById('sidebar').classList.toggle('open-sidebar');
+});
 
-    if (session) {
-        // Se estiver logado, abre o sistema mobile
-        abrirJanelaSistema();
-    } else {
-        // Se não estiver, você pode redirecionar para uma tela de login 
-        // ou exibir um alerta
-        alert("Por favor, faça login primeiro!");
+// Só roda o carregarUsuario se estiver na tela do sistema (onde existe o elemento 'user-name')
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('user-name')) {
+        carregarUsuario();
     }
-}
-
-   
+});
 
 async function handleLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const messageDiv = document.getElementById('message');
 
-    // 1. Tenta fazer o login
     const { data, error } = await supabaseClient.auth.signInWithPassword({
         email: email,
         password: password,
     });
 
     if (error) {
-        // Exibe erro se a senha ou e-mail estiverem incorretos
         messageDiv.textContent = `Erro: ${error.message}`;
     } else {
         messageDiv.style.color = "#28a745";
         messageDiv.textContent = 'Login realizado! Abrindo...';
-        
-        // 2. Se o login for sucesso, abre o sistema mobile
         abrirJanelaSistema();
     }
 }
@@ -57,16 +41,14 @@ function abrirJanelaSistema() {
     const topo = (window.screen.height / 2) - (altura / 2);
     const esquerda = (window.screen.width / 2) - (largura / 2);
 
-    // Abre o seu arquivo do sistema (AJUSTE O NOME DO ARQUIVO ABAIXO)
     window.open(
-        'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', // <--- Coloque aqui o nome do seu arquivo atual
+        'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', 
         'PeladasG8', 
         `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
     );
 }
 
 function sairDaTela() {
-    // Tenta fechar, se não conseguir, redireciona
     window.close();
     setTimeout(() => {
         window.location.href = "https://google.com";
@@ -74,20 +56,14 @@ function sairDaTela() {
 }
 
 async function carregarUsuario() {
-    // 1. Busca a sessão atual do usuário
-    const { data: { user } } = await supabaseClient.auth.getUser();
-
-    if (user) {
-        // 2. Recupera o nome que salvamos no 'full_name' durante o cadastro
-        const nomeUsuario = user.user_metadata.full_name || "Jogador";
-        
-        // 3. Insere o nome na tela
-        document.getElementById('user-name').textContent = nomeUsuario;
-    } else {
-        // Se por algum motivo não houver usuário logado, volta para a tela de entrada
-        window.location.href = "index.html"; 
+    try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (user) {
+            const nomeUsuario = user.user_metadata.full_name || "Jogador";
+            const campoNome = document.getElementById('user-name');
+            if (campoNome) campoNome.textContent = nomeUsuario;
+        }
+    } catch (e) {
+        console.log("Usuário não logado ou erro na sessão.");
     }
 }
-
-
-
