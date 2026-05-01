@@ -107,6 +107,12 @@ function abrirJanelaSistema() {
                 `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
             );
         }
+    function sairDaTela() {
+        // Tenta fechar, se não conseguir, redireciona
+        window.close();
+        setTimeout(() => {
+            window.location.href = "https://google.com";
+        }, 500);
+    }
 
-        
-    </script>
+
