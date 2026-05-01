@@ -5,7 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="src/css/styles.css">
      <!-- 1. Carrega o Supabase primeiro (SEM DEFER) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+   <!--  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
+     <script type="module">
+      // Importa a biblioteca diretamente do CDN como um módulo
+      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+    
+      const SUPABASE_URL = 'SUA_URL_AQUI'
+      const SUPABASE_KEY = 'SUA_ANON_KEY_AQUI'
+    
+      // Inicializa o cliente
+      const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY)
+    
+      // Agora suas funções podem usar o supabaseClient normalmente
+      window.handleLogin = async function() {
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+          
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+              email: email,
+              password: password,
+          });
+    
+          if (error) alert(error.message);
+          else abrirJanelaSistema();
+      }
+    </script>
+    
+    
     
     <!-- 2. Carrega o seu script depois (TAMBÉM SEM DEFER PARA TESTAR) -->
     <script src="src/javascript/script.js"></script>
