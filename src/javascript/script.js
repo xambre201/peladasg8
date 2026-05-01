@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', carregarUsuario);
 const SUPABASE_URL = 'https://supabase.co';
 const SUPABASE_KEY = 'sb_secret_HwUaSmOFMUMXSwz78BU3Bg_BlxST2KI'; // Use a chave "anon public"
 
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function iniciarApp() {
     // Exemplo: Verificar se o usuário está logado antes de abrir a janela
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await supabaseClient.auth.getSession();
 
     if (session) {
         // Se estiver logado, abre o sistema mobile
@@ -34,7 +34,7 @@ async function handleLogin() {
     const messageDiv = document.getElementById('message');
 
     // 1. Tenta fazer o login
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
         email: email,
         password: password,
     });
@@ -75,7 +75,7 @@ function sairDaTela() {
 
 async function carregarUsuario() {
     // 1. Busca a sessão atual do usuário
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabaseClient.auth.getUser();
 
     if (user) {
         // 2. Recupera o nome que salvamos no 'full_name' durante o cadastro
