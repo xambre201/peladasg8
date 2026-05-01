@@ -5,8 +5,11 @@ document.getElementById('open_btn').addEventListener('click', function () {
  function logout() {
             // 1. Verifica se a função está sendo chamada
             console.log("Botão logout clicado");
-
+            
             // Limpa registros de login para que outra pessoa não use o mesmo PC/Celular
+
+            await supabase.auth.signOut(); // Encerra a sessão no banco de dados
+     
             localStorage.clear();
             sessionStorage.clear();
             // 2. Tenta fechar a janela
@@ -86,5 +89,22 @@ async function iniciarApp() {
             window.location.href = "https://google.com";
         }, 500);
     }
+async function carregarUsuario() {
+    // 1. Busca a sessão atual do usuário
+    const { data: { user } } = await supabase.auth.getUser();
 
+    if (user) {
+        // 2. Recupera o nome que salvamos no 'full_name' durante o cadastro
+        const nomeUsuario = user.user_metadata.full_name || "Jogador";
+        
+        // 3. Insere o nome na tela
+        document.getElementById('user-name').textContent = nomeUsuario;
+    } else {
+        // Se por algum motivo não houver usuário logado, volta para a tela de entrada
+        window.location.href = "index.html"; 
+    }
+}
+
+// Executa a função assim que a página terminar de carregar
+document.addEventListener('DOMContentLoaded', carregarUsuario);
 
