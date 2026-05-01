@@ -1,6 +1,6 @@
 // 1. AS CONFIGURAÇÕES DEVEM VIR PRIMEIRO DE TUDO
-const SUPABASE_URL = 'https://SUA_URL_AQUI.supabase.co'; // Verifique se a sua URL está completa
-const SUPABASE_KEY = 'SUA_CHAVE_ANON_AQUI'; 
+const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
