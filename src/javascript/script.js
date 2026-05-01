@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-async function handleLogin() {
+async function handleLoginAAA() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const messageDiv = document.getElementById('message');
