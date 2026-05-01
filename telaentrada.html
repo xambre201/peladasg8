@@ -6,6 +6,77 @@
     <title>Peladas do G8 - Acesso</title>
     <!-- CSS Externo -->
     <link rel="stylesheet" href="src/css/styles.css">
+
+<!-- 1. Carrega a biblioteca global primeiro -->
+<script src="https://jsdelivr.net"></script>
+
+<script>
+    // Usamos o nome 'supabase' que vem da biblioteca carregada acima
+    let supabaseClient;
+
+    // Essa função roda assim que o navegador termina de ler o HTML
+    window.onload = function() {
+         // 2. Suas credenciais (COLOQUE AS QUE VOCÊ ACHOU NO LEGACY)
+       const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
+       const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
+;
+
+        // Inicializa o cliente globalmente
+        if (typeof supabase !== 'undefined') {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            console.log("Supabase carregado com sucesso!");
+        } else {
+            console.error("Erro: Biblioteca Supabase não encontrada.");
+        }
+    };
+
+    async function handleLogin() {
+        if (!supabaseClient) {
+            alert("O sistema ainda está carregando, tente novamente em 1 segundo.");
+            return;
+        }
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const messageDiv = document.getElementById('message');
+
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                messageDiv.textContent = "Erro: " + error.message;
+            } else {
+                messageDiv.style.color = "#28a745";
+                messageDiv.textContent = "Login OK! Abrindo...";
+                abrirJanelaSistema();
+            }
+        } catch (err) {
+            alert("Falha na conexão.");
+        }
+    }
+
+    function abrirJanelaSistema() {
+        const largura = 390;
+        const altura = 844;
+        const topo = (screen.height / 2) - (altura / 2);
+        const esquerda = (screen.width / 2) - (largura / 2);
+
+        window.open(
+            'https://github.io', 
+            'PeladasG8', 
+            `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
+        );
+    }
+
+    function sairDaTela() {
+        window.close();
+        setTimeout(() => { window.location.href = "https://google.com"; }, 500);
+    }
+</script>
+    
 </head>
 <body>
 
@@ -24,60 +95,6 @@
 
     <button class="btn-sair" onclick="window.sairDaTela()">SAIR</button>
 
-    <!-- O segredo: usamos o type="module" para o Supabase moderno -->
-    <script type="module">
-        // 1. Importa a biblioteca corretamente
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-        // 2. Suas credenciais (COLOQUE AS QUE VOCÊ ACHOU NO LEGACY)
-       const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
-       const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
-
-
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // 3. Tornamos a função global para o botão 'onclick' funcionar
-        async function  handleLogin() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('message');
-
-            try {
-                const { data, error } = await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password,
-                });
-
-                if (error) {
-                    messageDiv.textContent = "Erro: " + error.message;
-                } else {
-                    messageDiv.style.color = "#28a745";
-                    messageDiv.textContent = "Login OK! Abrindo...";
-                    abrirJanelaSistema();
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Falha na conexão.");
-            }
-        }
-
-        function abrirJanelaSistema() {
-            const largura = 390;
-            const altura = 844;
-            const topo = (screen.height / 2) - (altura / 2);
-            const esquerda = (screen.width / 2) - (largura / 2);
-
-            window.open(
-                'https://github.io', 
-                'PeladasG8', 
-                `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
-            );
-        }
-
-        window.sairDaTela = function() {
-            window.close();
-            setTimeout(() => { window.location.href = "https://google.com"; }, 500);
-        }
-    </script>
 </body>
 </html>
