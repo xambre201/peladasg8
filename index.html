@@ -7,7 +7,8 @@
     <!-- CSS Externo -->
     <link rel="stylesheet" href="src/css/styles.css">
 
-   <script src="https://unpkg.com/@supabase/supabase-js/@2"></script>
+   <-- script src="https://unpkg.com/@supabase/supabase-js/@2"></script -->
+    <script src="https://jsdelivr.net"></script>       
      
 </head>
 <body>
@@ -38,13 +39,17 @@
       const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
 
-        if (typeof supabase !== 'undefined') {
-            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-            console.log("Supabase inicializado!");
-        } else {
-            console.log("Aguardando biblioteca...");
-            setTimeout(configurarSupabase, 500); // Tenta de novo em meio segundo
-        }
+       
+    // Verifica se a biblioteca foi carregada de qualquer uma das duas formas
+    const lib = window.supabase || window.supabase.default;
+
+    if (typeof lib !== 'undefined') {
+        supabaseClient = lib.createClient(SUPABASE_URL, SUPABASE_KEY);
+        console.log("Supabase inicializado com sucesso!");
+    } else {
+        console.log("Aguardando biblioteca...");
+        setTimeout(configurarSupabase, 500);
+    }
     }
 
     // Inicia a tentativa de configuração
