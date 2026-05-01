@@ -41,35 +41,7 @@ async function iniciarApp() {
     }
 }
 
-function abrirJanelaSistema() {
-    const largura = 390;
-    const altura = 844;
-    const topo = (window.screen.height / 2) - (altura / 2);
-    const esquerda = (window.screen.width / 2) - (largura / 2);
-
-    window.open(
-        'sistema_g8.html', 
-        'PeladasG8', 
-        `width=${largura},height=${altura},top=${topo},left=${esquerda},resizable=no`
-    );
-}
-
-        function iniciarApp() {
-            // Definições de tamanho mobile (iPhone 12/13)
-            const largura = 390;
-            const altura = 844;
-            
-            // Centralizar a janelinha no monitor do PC
-            const topo = (window.screen.height / 2) - (altura / 2);
-            const esquerda = (window.screen.width / 2) - (largura / 2);
-
-            // Abre o seu arquivo do sistema (AJUSTE O NOME DO ARQUIVO ABAIXO)
-            window.open(
-                'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', // <--- Coloque aqui o nome do seu arquivo atual
-                'PeladasG8', 
-                `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
-            );
-        }
+   
 
         async function handleLogin() {
             const email = document.getElementById('email').value;
