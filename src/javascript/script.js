@@ -25,7 +25,7 @@ document.getElementById('open_btn').addEventListener('click', function () {
         }
 
 // Configurações do seu projeto Supabase
-const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/';
+const SUPABASE_URL = 'https://supabase.co';
 const SUPABASE_KEY = 'sb_secret_HwUaSmOFMUMXSwz78BU3Bg_BlxST2KI'; // Use a chave "anon public"
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
