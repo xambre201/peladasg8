@@ -16,7 +16,7 @@
         <input type="password" id="password" placeholder="Senha" required>
         
         <!-- Chamamos a função com window. para garantir que o navegador a encontre -->
-        <button class="btn-entrar" onclick="window.handleLogin()">
+        <button class="btn-entrar" onclick="handleLogin()">
             ENTRAR NO SISTEMA
         </button>
         <div id="message" style="margin-top: 10px; color: #ff4d4d; font-size: 14px;"></div>
@@ -37,7 +37,7 @@
         const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
         // 3. Tornamos a função global para o botão 'onclick' funcionar
-        window.handleLogin = async function() {
+        async function  handleLogin() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const messageDiv = document.getElementById('message');
