@@ -53,7 +53,7 @@ function abrirJanelaSistema() {
         `width=${largura},height=${altura},top=${topo},left=${esquerda},resizable=no`
     );
 }
-    <script>
+
         function iniciarApp() {
             // Definições de tamanho mobile (iPhone 12/13)
             const largura = 390;
