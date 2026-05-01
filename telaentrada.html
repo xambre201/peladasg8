@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="src/css/styles.css">
-    <!-- Primeiro o Supabase -->
-    <script src="https://jsdelivr.net"></script>
-    <!-- Depois o seu script -->
-    <script src="src/javascript/script.js" defer></script>
+     <!-- 1. Carrega o Supabase primeiro (SEM DEFER) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 2. Carrega o seu script depois (TAMBÉM SEM DEFER PARA TESTAR) -->
+    <script src="src/javascript/script.js"></script>
+    
     <title>Peladas do G8 - Acesso</title>
     <style>
      
