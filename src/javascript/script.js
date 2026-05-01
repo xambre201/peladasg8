@@ -46,49 +46,51 @@ async function iniciarApp() {
 
    
 
-        async function handleLogin() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('message');
+async function handleLogin() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const messageDiv = document.getElementById('message');
+
+    // 1. Tenta fazer o login
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        // Exibe erro se a senha ou e-mail estiverem incorretos
+        messageDiv.textContent = `Erro: ${error.message}`;
+    } else {
+        messageDiv.style.color = "#28a745";
+        messageDiv.textContent = 'Login realizado! Abrindo...';
         
-            // 1. Tenta fazer o login
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password,
-            });
-        
-            if (error) {
-                // Exibe erro se a senha ou e-mail estiverem incorretos
-                messageDiv.textContent = `Erro: ${error.message}`;
-            } else {
-                messageDiv.style.color = "#28a745";
-                messageDiv.textContent = 'Login realizado! Abrindo...';
-                
-                // 2. Se o login for sucesso, abre o sistema mobile
-                abrirJanelaSistema();
-            }
-        }
-        
-        function abrirJanelaSistema() {
-            const largura = 390;
-            const altura = 844;
-            const topo = (window.screen.height / 2) - (altura / 2);
-            const esquerda = (window.screen.width / 2) - (largura / 2);
-        
-            // Abre o seu arquivo do sistema (AJUSTE O NOME DO ARQUIVO ABAIXO)
-            window.open(
-                'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', // <--- Coloque aqui o nome do seu arquivo atual
-                'PeladasG8', 
-                `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
-            );
-        }
-    function sairDaTela() {
-        // Tenta fechar, se não conseguir, redireciona
-        window.close();
-        setTimeout(() => {
-            window.location.href = "https://google.com";
-        }, 500);
+        // 2. Se o login for sucesso, abre o sistema mobile
+        abrirJanelaSistema();
     }
+}
+
+function abrirJanelaSistema() {
+    const largura = 390;
+    const altura = 844;
+    const topo = (window.screen.height / 2) - (altura / 2);
+    const esquerda = (window.screen.width / 2) - (largura / 2);
+
+    // Abre o seu arquivo do sistema (AJUSTE O NOME DO ARQUIVO ABAIXO)
+    window.open(
+        'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', // <--- Coloque aqui o nome do seu arquivo atual
+        'PeladasG8', 
+        `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
+    );
+}
+
+function sairDaTela() {
+    // Tenta fechar, se não conseguir, redireciona
+    window.close();
+    setTimeout(() => {
+        window.location.href = "https://google.com";
+    }, 500);
+}
+
 async function carregarUsuario() {
     // 1. Busca a sessão atual do usuário
     const { data: { user } } = await supabase.auth.getUser();
