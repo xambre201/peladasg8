@@ -10,6 +10,28 @@
 <!-- 1. Carrega a biblioteca global primeiro -->
 <!-- 1. Carrega a biblioteca global -->
 
+
+
+    
+</head>
+<body>
+
+    <div class="logo">⚽ Peladas do G8</div>
+
+    <div id="login-container">
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="password" id="password" placeholder="Senha" required>
+        
+        <!-- Chamamos a função com window. para garantir que o navegador a encontre -->
+        <button class="btn-entrar" onclick="handleLogin()">
+            ENTRAR NO SISTEMA
+        </button>
+        <div id="message" style="margin-top: 10px; color: #ff4d4d; font-size: 14px;"></div>
+    </div>
+
+    <button class="btn-sair" onclick="sairDaTela()">SAIR</button>
+
+    
 <script src="https://unpkg.com"></script>
 
 <script>
@@ -79,27 +101,6 @@
     }
     
 </script>
-
-
-    
-</head>
-<body>
-
-    <div class="logo">⚽ Peladas do G8</div>
-
-    <div id="login-container">
-        <input type="email" id="email" placeholder="E-mail" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        
-        <!-- Chamamos a função com window. para garantir que o navegador a encontre -->
-        <button class="btn-entrar" onclick="handleLogin()">
-            ENTRAR NO SISTEMA
-        </button>
-        <div id="message" style="margin-top: 10px; color: #ff4d4d; font-size: 14px;"></div>
-    </div>
-
-    <button class="btn-sair" onclick="sairDaTela()">SAIR</button>
-
 
 </body>
 </html>
