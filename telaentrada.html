@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/css/styles.css">
-    <script src="src/javascript/script.js" defer></script>
+   <link rel="stylesheet" href="src/css/styles.css">
+    <!-- Primeiro o Supabase -->
     <script src="https://jsdelivr.net"></script>
+    <!-- Depois o seu script -->
+    <script src="src/javascript/script.js" defer></script>
     <title>Peladas do G8 - Acesso</title>
     <style>
      
@@ -19,7 +21,7 @@
       <input type="email" id="email" placeholder="E-mail" required>
       <input type="password" id="password" placeholder="Senha" required>
       
-      <button class="btn-entrar" onclick="abrirJanelaSistema()">
+      <button class="btn-entrar" onclick="handleLogin()">
           ENTRAR NO SISTEMA
       </button>
        <div id="message" style="margin-top: 10px; color: #ff4d4d; font-size: 14px;"></div>
