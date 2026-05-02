@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>G8 - Gestão de Membros</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <script src="src/javascript/supabase-lib.js"></script>
+    <script src="src/javascript/admin.js"></script> <!-- Script específico para admin -->
+</head>
+<body>
+    <div class="logo">⚙️ Gestão de Membros</div>
+    <div id="login-container">
+        <input type="text" id="apelido-busca" placeholder="Digite o Apelido">
+        <button onclick="buscarMembro()">BUSCAR NOME</button>
+        
+        <hr>
+        <p>Nome: <strong id="nome-membro">---</strong></p>
+        <input type="email" id="email-membro" placeholder="E-mail do Membro">
+        <input type="password" id="nova-senha" placeholder="Nova Senha">
+        
+        <button class="btn-entrar" onclick="atualizarSenha()">ATUALIZAR SENHA</button>
+    </div>
+    <button class="btn-sair" onclick="window.location.href='index.html'">VOLTAR</button>
+</body>
+</html>
