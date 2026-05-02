@@ -9,17 +9,24 @@
 </head>
 <body>
     <div class="logo">⚙️ Gestão de Membros</div>
-    <div id="login-container">
-        <input type="text" id="apelido-busca" placeholder="Digite o Apelido">
-        <button onclick="buscarMembro()">BUSCAR NOME</button>
-        
-        <hr>
-        <p>Nome: <strong id="nome-membro">---</strong></p>
-        <input type="email" id="email-membro" placeholder="E-mail do Membro">
-        <input type="password" id="nova-senha" placeholder="Nova Senha">
-        
-        <button class="btn-entrar" onclick="atualizarSenha()">ATUALIZAR SENHA</button>
-    </div>
+   <div id="login-container">
+    <input type="text" id="apelido-busca" placeholder="Digite o Apelido">
+    <button onclick="buscarMembro()">BUSCAR MEMBRO</button>
+    
+    <hr style="margin: 20px 0;">
+    
+    <p>Nome: <strong id="nome-membro">---</strong></p>
+    
+    <!-- data-user-id vai guardar o ID secreto do usuário -->
+    <input type="email" id="email-membro" placeholder="E-mail" readonly data-user-id="">
+    
+    <input type="password" id="nova-senha" placeholder="Nova Senha">
+    
+    <button class="btn-entrar" onclick="atualizarSenha()">
+        GRAVAR NOVA SENHA
+    </button>
+</div>
+
     <button class="btn-sair" onclick="window.location.href='index.html'">VOLTAR</button>
 </body>
 </html>
