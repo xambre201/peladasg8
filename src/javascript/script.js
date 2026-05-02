@@ -41,6 +41,25 @@ var supabaseClient;
         } else {
             console.log("3. Login com sucesso! Dados:", data);
             alert("Sucesso! Abrindo o sistema...");
+
+            // ... dentro do seu handleLogin após o sucesso ...
+            if (data.user) {
+                console.log("Login com sucesso!");
+                
+                // 1. Salva no navegador que o usuário está logado (opcional, mas bom)
+                localStorage.setItem('usuario_logado', data.user.email);
+            
+                // 2. Redireciona para a página de administração
+                // Se quiser que apenas VOCÊ (admin) entre aqui, pode fazer:
+                if (data.user.email === 'xampiaca@gmail.com') {
+                    window.location.href = 'admin.html';
+                } else {
+                    // Se for um usuário comum, manda para outra tela ou dá boas-vindas
+                    document.getElementById('message').innerText = "Bem-vindo, " + data.user.email;
+                }
+            }
+
+            
             abrirJanelaSistema();
         }
     } catch (err) {
