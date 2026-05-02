@@ -1,4 +1,6 @@
-    var supabaseClient;
+console.log("Script.js carregado!");
+
+var supabaseClient;
 
     window.onload = function() {
         // Suas chaves (URL e KEY)
