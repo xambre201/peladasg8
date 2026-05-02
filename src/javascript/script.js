@@ -1,59 +1,66 @@
-// 1. AS CONFIGURAÇÕES DEVEM VIR PRIMEIRO DE TUDO
-const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
+    var supabaseClient;
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    window.onload = function() {
+        // Suas chaves (URL e KEY)
+       const URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
+       const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
-// 2. AGORA AS FUNÇÕES E EVENTOS
-document.getElementById('open_btn')?.addEventListener('click', function () {
-    document.getElementById('sidebar').classList.toggle('open-sidebar');
-});
+        // Agora a biblioteca SEMPRE estará disponível pois é local
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(URL, KEY);
+            console.log("✅ Supabase carregado localmente com sucesso!");
+        } else {
+            console.error("Erro ao ler o arquivo local src/javascript/supabase-lib.js");
+        }
+    };
 
-// Só roda o carregarUsuario se estiver na tela do sistema (onde existe o elemento 'user-name')
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('user-name')) {
-        carregarUsuario();
+    async function handleLogin() {
+    console.log("1. Botão clicado!"); // Aparece no console
+
+    if (!supabaseClient) {
+        alert("Erro: O cliente Supabase ainda não foi inicializado.");
+        return;
     }
-});
 
-async function handleLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const messageDiv = document.getElementById('message');
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password,
-    });
+    console.log("2. Tentando logar o e-mail:", email);
 
-    if (error) {
-        messageDiv.textContent = `Erro: ${error.message}`;
-    } else {
-        messageDiv.style.color = "#28a745";
-        messageDiv.textContent = 'Login realizado! Abrindo...';
-        abrirJanelaSistema();
+    try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+        if (error) {
+            console.log("3. Erro retornado pelo Supabase:", error.message);
+            document.getElementById('message').textContent = "Erro: " + error.message;
+        } else {
+            console.log("3. Login com sucesso! Dados:", data);
+            alert("Sucesso! Abrindo o sistema...");
+            abrirJanelaSistema();
+        }
+    } catch (err) {
+        console.error("Erro inesperado:", err);
+        alert("Ocorreu um erro técnico na tentativa de login.");
     }
 }
 
-function abrirJanelaSistema() {
-    const largura = 390;
-    const altura = 844;
-    const topo = (window.screen.height / 2) - (altura / 2);
-    const esquerda = (window.screen.width / 2) - (largura / 2);
 
-    window.open(
-        'https://html-preview.github.io/?url=https://raw.githubusercontent.com/xambre201/peladasg8/main/index.html#', 
-        'PeladasG8', 
-        `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
-    );
-}
+    function abrirJanelaSistema() {
+        const largura = 390;
+        const altura = 844;
+        window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
+    }
 
-function sairDaTela() {
-    window.close();
-    setTimeout(() => {
-        window.location.href = "https://google.com";
-    }, 500);
-}
+    function sairDaTela() {
+        window.close();
+        setTimeout(() => {
+            window.location.href = "https://google.com";
+        }, 500);
+    }
+    
 
 async function carregarUsuario() {
     try {
