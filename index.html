@@ -7,8 +7,7 @@
     <!-- CSS Externo -->
     <link rel="stylesheet" href="src/css/styles.css">
 
-    <script src="https://jsdelivr.net"></script>       
-     
+
 </head>
 <body>
 
@@ -27,57 +26,44 @@
 
     <button class="btn-sair" onclick="sairDaTela()">SAIR</button>
 
-
 <script>
     var supabaseClient;
 
-  
-   function carregarBiblioteca() {
-    const script = document.createElement('script');
-    // NOVO LINK DO CLOUDFLARE
-    script.src = "https://cloudflare.com";
-    script.async = true;
+    // 1. Carregador via Cloudflare (mais estável)
+    function carregarBiblioteca() {
+        const script = document.createElement('script');
+        script.src = "https://cloudflare.com";
+        script.async = true;
 
-    script.onload = () => {
-        console.log("Arquivo baixado via Cloudflare!");
-        inicializarSupabase();
-    };
+        script.onload = () => {
+            console.log("Biblioteca baixada via Cloudflare!");
+            inicializarSupabase();
+        };
 
-    script.onerror = () => {
-        console.error("Cloudflare também falhou. Verifique sua conexão.");
-    };
+        script.onerror = () => {
+            console.error("Falha ao carregar a biblioteca.");
+        };
 
-    document.head.appendChild(script);
-}
+        document.head.appendChild(script);
+    }
 
-carregarBiblioteca();
-
-    // 2. Função que liga o banco de dados
+    // 2. Inicialização
     function inicializarSupabase() {
+       
        const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
 
-        // Tenta encontrar a biblioteca em todos os lugares possíveis
-        const lib = window.supabase || (window.supabase && window.supabase.default);
-
-        if (lib && lib.createClient) {
-            supabaseClient = lib.createClient(URL, KEY);
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(URL, KEY);
             console.log("✅ Supabase inicializado!");
-        } else {
-            console.error("Biblioteca carregada, mas comando 'createClient' não encontrado.");
         }
     }
 
-    // Inicia tudo
-    carregarBiblioteca();
-
-    }
-
-  
+    // 3. Login
     async function handleLogin() {
         if (!supabaseClient) {
-            alert("A conexão com o banco de dados ainda não está pronta. Aguarde um instante.");
+            alert("Aguarde o sistema carregar...");
             return;
         }
 
@@ -87,14 +73,12 @@ carregarBiblioteca();
 
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
-            password: password,
+            password: password
         });
 
         if (error) {
             messageDiv.textContent = "Erro: " + error.message;
         } else {
-            messageDiv.style.color = "#28a745";
-            messageDiv.textContent = "Sucesso! Abrindo...";
             abrirJanelaSistema();
         }
     }
@@ -104,13 +88,13 @@ carregarBiblioteca();
         const altura = 844;
         const topo = (screen.height / 2) - (altura / 2);
         const esquerda = (screen.width / 2) - (largura / 2);
-
-        window.open(
-            'https://github.io', 
-            'PeladasG8', 
-            `width=${largura},height=${altura},top=${topo},left=${esquerda},scrollbars=yes,resizable=no`
-        );
+        window.open('index.html', 'PeladasG8', `width=${largura},height=${altura},top=${topo},left=${esquerda}`);
     }
+
+    // INICIA O PROCESSO
+    carregarBiblioteca();
+
+
 
     function sairDaTela() {
         window.close();
