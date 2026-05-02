@@ -31,27 +31,26 @@
 <script>
     var supabaseClient;
 
-   var supabaseClient;
+  
+   function carregarBiblioteca() {
+    const script = document.createElement('script');
+    // NOVO LINK DO CLOUDFLARE
+    script.src = "https://cloudflare.com";
+    script.async = true;
 
-    // 1. Criamos um "carregador" manual
-    function carregarBiblioteca() {
-        const script = document.createElement('script');
-        // Link direto e estável
-        script.src = "https://jsdelivr.net";
-        script.async = true;
+    script.onload = () => {
+        console.log("Arquivo baixado via Cloudflare!");
+        inicializarSupabase();
+    };
 
-        script.onload = () => {
-            console.log("Arquivo JS baixado com sucesso!");
-            inicializarSupabase();
-        };
+    script.onerror = () => {
+        console.error("Cloudflare também falhou. Verifique sua conexão.");
+    };
 
-        script.onerror = () => {
-            console.error("Falha fatal ao baixar o script do Supabase.");
-            alert("Erro de conexão com o servidor de scripts.");
-        };
+    document.head.appendChild(script);
+}
 
-        document.head.appendChild(script);
-    }
+carregarBiblioteca();
 
     // 2. Função que liga o banco de dados
     function inicializarSupabase() {
