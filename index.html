@@ -45,22 +45,38 @@ telabase<!DOCTYPE html>
     };
 
     async function handleLogin() {
-        if (!supabaseClient) return;
+    console.log("1. Botão clicado!"); // Aparece no console
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    if (!supabaseClient) {
+        alert("Erro: O cliente Supabase ainda não foi inicializado.");
+        return;
+    }
 
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    console.log("2. Tentando logar o e-mail:", email);
+
+    try {
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password
         });
 
         if (error) {
+            console.log("3. Erro retornado pelo Supabase:", error.message);
             document.getElementById('message').textContent = "Erro: " + error.message;
         } else {
+            console.log("3. Login com sucesso! Dados:", data);
+            alert("Sucesso! Abrindo o sistema...");
             abrirJanelaSistema();
         }
+    } catch (err) {
+        console.error("Erro inesperado:", err);
+        alert("Ocorreu um erro técnico na tentativa de login.");
     }
+}
+
 
     function abrirJanelaSistema() {
         const largura = 390;
