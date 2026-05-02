@@ -4,7 +4,7 @@ var supabaseClient;
 
     window.onload = function() {
         // Suas chaves (URL e KEY)
-       const URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
+       const URL = 'https://ruyvfilupwwocqbnknws.supabase.co'; // Verifique se a sua URL está completa
        const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
         // Agora a biblioteca SEMPRE estará disponível pois é local
