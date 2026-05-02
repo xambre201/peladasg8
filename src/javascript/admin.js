@@ -1,6 +1,6 @@
 // Substitua pelos seus dados reais do painel do Supabase (Project Settings > API)
-const SUPABASE_URL = 'SUA_URL_AQUI';
-const SERVICE_ROLE_KEY = 'SUA_SERVICE_ROLE_KEY_AQUI';
+const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co';
+const SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTE3NzEzMSwiZXhwIjoyMDkwNzUzMTMxfQ.dmD3HVelrzl9pLDMTVjJO1PFk89K1MVYc5JL7oYQnMo';
 
 // Criamos o cliente com a Service Role para ter permissão de alterar usuários
 const supabaseAdmin = supabase.createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
