@@ -7,7 +7,7 @@
     <!-- CSS Externo -->
     <link rel="stylesheet" href="src/css/styles.css">
 
-
+    
 </head>
 <body>
 
@@ -25,45 +25,29 @@
     </div>
 
     <button class="btn-sair" onclick="sairDaTela()">SAIR</button>
-
 <script>
     var supabaseClient;
 
-    // 1. Carregador via Cloudflare (mais estável)
-    function carregarBiblioteca() {
-        const script = document.createElement('script');
-        script.src = "https://cloudflare.com";
-        script.async = true;
-
-        script.onload = () => {
-            console.log("Biblioteca baixada via Cloudflare!");
-            inicializarSupabase();
-        };
-
-        script.onerror = () => {
-            console.error("Falha ao carregar a biblioteca.");
-        };
-
-        document.head.appendChild(script);
-    }
-
-    // 2. Inicialização
-    function inicializarSupabase() {
+    // Esta função tenta conectar assim que a página abre
+    window.onload = function() {
        
        const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
 
-        if (window.supabase) {
+        // Verifica se a biblioteca carregou lá do <head>
+        if (window.supabase && window.supabase.createClient) {
             supabaseClient = window.supabase.createClient(URL, KEY);
-            console.log("✅ Supabase inicializado!");
+            console.log("✅ Supabase pronto para uso!");
+        } else {
+            console.error("❌ A biblioteca não carregou. Verifique sua internet.");
+            alert("Erro crítico: Não foi possível conectar ao servidor.");
         }
-    }
+    };
 
-    // 3. Login
     async function handleLogin() {
         if (!supabaseClient) {
-            alert("Aguarde o sistema carregar...");
+            alert("Sistema ainda carregando...");
             return;
         }
 
@@ -79,6 +63,8 @@
         if (error) {
             messageDiv.textContent = "Erro: " + error.message;
         } else {
+            messageDiv.style.color = "#28a745";
+            messageDiv.textContent = "Sucesso! Abrindo...";
             abrirJanelaSistema();
         }
     }
@@ -88,13 +74,10 @@
         const altura = 844;
         const topo = (screen.height / 2) - (altura / 2);
         const esquerda = (screen.width / 2) - (largura / 2);
+        
+        // Aqui deve ser o link do seu sistema
         window.open('index.html', 'PeladasG8', `width=${largura},height=${altura},top=${topo},left=${esquerda}`);
     }
-
-    // INICIA O PROCESSO
-    carregarBiblioteca();
-
-
 
     function sairDaTela() {
         window.close();
@@ -102,8 +85,6 @@
             window.location.href = "https://google.com";
         }, 500);
     }
-
-
     
 </script>
 
