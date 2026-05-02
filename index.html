@@ -31,21 +31,56 @@
 <script>
     var supabaseClient;
 
-    // Função para configurar o Supabase
-    function configurarSupabase() {
-      
-      const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
-      const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
+   var supabaseClient;
 
-   // O link acima coloca o 'supabase' direto no window
-    if (window.supabase && window.supabase.createClient) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        console.log("Supabase pronto e conectado!");
-    } else {
-        console.log("Aguardando biblioteca (CORB Check)...");
-        setTimeout(configurarSupabase, 500);
+    // 1. Criamos um "carregador" manual
+    function carregarBiblioteca() {
+        const script = document.createElement('script');
+        // Link direto e estável
+        script.src = "https://jsdelivr.net";
+        script.async = true;
+
+        script.onload = () => {
+            console.log("Arquivo JS baixado com sucesso!");
+            inicializarSupabase();
+        };
+
+        script.onerror = () => {
+            console.error("Falha fatal ao baixar o script do Supabase.");
+            alert("Erro de conexão com o servidor de scripts.");
+        };
+
+        document.head.appendChild(script);
     }
-}
+
+    // 2. Função que liga o banco de dados
+    function inicializarSupabase() {
+       const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
+       const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
+
+
+        // Tenta encontrar a biblioteca em todos os lugares possíveis
+        const lib = window.supabase || (window.supabase && window.supabase.default);
+
+        if (lib && lib.createClient) {
+            supabaseClient = lib.createClient(URL, KEY);
+            console.log("✅ Supabase inicializado!");
+        } else {
+            console.error("Biblioteca carregada, mas comando 'createClient' não encontrado.");
+        }
+    }
+
+    // Inicia tudo
+    carregarBiblioteca();
+
+    // 3. Sua função de login (não muda nada)
+    async function handleLogin() {
+        if (!supabaseClient) {
+            alert("Aguarde o carregamento do sistema...");
+            return;
+        }
+        // ... restante do seu código de login ...
+    }
 
   
     async function handleLogin() {
@@ -92,7 +127,7 @@
         }, 500);
     }
 
-configurarSupabase();
+
     
 </script>
 
