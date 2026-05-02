@@ -7,7 +7,7 @@
     <!-- CSS Externo -->
     <link rel="stylesheet" href="src/css/styles.css">
 
-    <script src="https://jsdelivr.net"></script>       
+    <script src="https://cdn.jsdelivr.net"></script>       
      
 </head>
 <body>
@@ -39,18 +39,24 @@
       const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
       const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
-     
-    // Verifica se a biblioteca foi carregada de qualquer uma das duas formas
-    const lib = window.supabase || window.supabase.default;
+    // 1. Primeiro checamos se 'supabase' existe
+    if (typeof window.supabase !== 'undefined') {
+        
+        // 2. Algumas versões precisam do .default, outras não. 
+        // Essa linha abaixo resolve para os dois casos sem dar erro:
+        const lib = window.supabase.createClient ? window.supabase : window.supabase.default;
+        
+        if (lib && lib.createClient) {
+            supabaseClient = lib.createClient(SUPABASE_URL, SUPABASE_KEY);
+            console.log("Supabase inicializado!");
+            return; // Para o loop
+        }
+    }
 
-    if (typeof lib !== 'undefined') {
-        supabaseClient = lib.createClient(SUPABASE_URL, SUPABASE_KEY);
-        console.log("Supabase inicializado com sucesso!");
-    } else {
-        console.log("Aguardando biblioteca...");
-        setTimeout(configurarSupabase, 500);
-    }
-    }
+    // Se chegou aqui, é porque ainda não carregou
+    console.log("Aguardando biblioteca...");
+    setTimeout(configurarSupabase, 500);
+}
 
   
     async function handleLogin() {
