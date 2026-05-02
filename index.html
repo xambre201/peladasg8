@@ -26,6 +26,8 @@
     </div>
 
     <button class="btn-sair" onclick="sairDaTela()">SAIR</button>
+   // Inicia a tentativa de configuração
+ <script>   configurarSupabase(); </script>
 
 
 <script>
@@ -37,8 +39,7 @@
       const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
       const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
-
-       
+     
     // Verifica se a biblioteca foi carregada de qualquer uma das duas formas
     const lib = window.supabase || window.supabase.default;
 
@@ -51,9 +52,7 @@
     }
     }
 
-    // Inicia a tentativa de configuração
-    configurarSupabase();
-
+  
     async function handleLogin() {
         if (!supabaseClient) {
             alert("A conexão com o banco de dados ainda não está pronta. Aguarde um instante.");
