@@ -28,7 +28,9 @@ var supabaseClient;
     const password = document.getElementById('password').value;
 
     console.log("2. Tentando logar o e-mail:", email, password);
+        
 
+    alert("2. Tentando logar o e-mail:", email, password);
     try {
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
