@@ -5,6 +5,17 @@ const SERVICE_ROLE_KEY = 'SUA_SERVICE_ROLE_KEY_AQUI';
 // Criamos o cliente com a Service Role para ter permissão de alterar usuários
 const supabaseAdmin = supabase.createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
+// Verifica se o usuário está logado ao carregar a página
+window.onload = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session) {
+        // Se não houver sessão ativa, manda de volta para o login
+        alert("Acesso negado! Por favor, faça login.");
+        window.location.href = 'index.html';
+    }
+};
+
 async function buscarMembro() {
     const apelido = document.getElementById('apelido-busca').value.trim();
     const statusMsg = document.getElementById('nome-membro');
