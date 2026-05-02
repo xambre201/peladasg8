@@ -6,7 +6,7 @@
     <title>Peladas do G8 - Acesso</title>
     <!-- CSS Externo -->
     <link rel="stylesheet" href="src/css/styles.css">
-
+    <script src="src/javascript/supabase-lib.js"></script>
     
 </head>
 <body>
@@ -25,35 +25,30 @@
     </div>
 
     <button class="btn-sair" onclick="sairDaTela()">SAIR</button>
+
+
 <script>
     var supabaseClient;
 
-    // Esta função tenta conectar assim que a página abre
     window.onload = function() {
-       
+        // Suas chaves (URL e KEY)
        const SUPABASE_URL = 'https://ruyvfilupwwocqbnknws.supabase.co/rest/v1/'; // Verifique se a sua URL está completa
        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1eXZmaWx1cHd3b2NxYm5rbndzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzcxMzEsImV4cCI6MjA5MDc1MzEzMX0.vb9aa_dXhqXWKm5GBlvYFSAHxmUkrUG-zZYxrbR1has'; 
 
-
-        // Verifica se a biblioteca carregou lá do <head>
-        if (window.supabase && window.supabase.createClient) {
+        // Agora a biblioteca SEMPRE estará disponível pois é local
+        if (window.supabase) {
             supabaseClient = window.supabase.createClient(URL, KEY);
-            console.log("✅ Supabase pronto para uso!");
+            console.log("✅ Supabase carregado localmente com sucesso!");
         } else {
-            console.error("❌ A biblioteca não carregou. Verifique sua internet.");
-            alert("Erro crítico: Não foi possível conectar ao servidor.");
+            console.error("Erro ao ler o arquivo local src/javascript/supabase-lib.js");
         }
     };
 
     async function handleLogin() {
-        if (!supabaseClient) {
-            alert("Sistema ainda carregando...");
-            return;
-        }
+        if (!supabaseClient) return;
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const messageDiv = document.getElementById('message');
 
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
@@ -61,10 +56,8 @@
         });
 
         if (error) {
-            messageDiv.textContent = "Erro: " + error.message;
+            document.getElementById('message').textContent = "Erro: " + error.message;
         } else {
-            messageDiv.style.color = "#28a745";
-            messageDiv.textContent = "Sucesso! Abrindo...";
             abrirJanelaSistema();
         }
     }
@@ -72,11 +65,7 @@
     function abrirJanelaSistema() {
         const largura = 390;
         const altura = 844;
-        const topo = (screen.height / 2) - (altura / 2);
-        const esquerda = (screen.width / 2) - (largura / 2);
-        
-        // Aqui deve ser o link do seu sistema
-        window.open('index.html', 'PeladasG8', `width=${largura},height=${altura},top=${topo},left=${esquerda}`);
+        window.open('index.html', 'PeladasG8', `width=${largura},height=${altura}`);
     }
 
     function sairDaTela() {
