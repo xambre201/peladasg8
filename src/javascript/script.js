@@ -16,7 +16,7 @@ var supabaseClient;
         }
     };
 
-    async function handleLogin() {
+    async function handleLogin(tela) {
     console.log("1. Botão clicado!"); // Aparece no console
 
     if (!supabaseClient) {
@@ -62,7 +62,7 @@ var supabaseClient;
             }
 
             
-            abrirJanelaSistema();
+            abrirJanelaSistema(tela);
         }
     } catch (err) {
         console.error("Erro inesperado:", err);
@@ -72,9 +72,14 @@ var supabaseClient;
 
 
     function abrirJanelaSistema() {
-        const largura = 390;
-        const altura = 844;
-        window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
+        const largura = 360;
+        const altura = 644;
+        if (tela === 1) {
+            window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
+        } else {
+             window.open('admin.html', 'PeladasG8', `width=${largura},height=${altura}`);
+        }
+      
     }
 
     function sairDaTela() {
