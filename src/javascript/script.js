@@ -16,7 +16,7 @@ var supabaseClient;
         }
     };
 
-    async function handleLogin() {
+    async function handleLogin(valor) {
     console.log("111. Botão clicado! -> ",tela); // Aparece no console
 
     if (!supabaseClient) {
@@ -53,7 +53,7 @@ var supabaseClient;
             
                 // 2. Redireciona para a página de administração
                 // Se quiser que apenas VOCÊ (admin) entre aqui, pode fazer:
-                if (data.user.email === 'xampiaca6654@gmail.com') {
+                if (data.user.email === 'xampiaca6654@gmail.com' and valor === 2) {
                     window.location.href = 'admin.html';
                 } else {
                     // Se for um usuário comum, manda para outra tela ou dá boas-vindas
@@ -62,7 +62,7 @@ var supabaseClient;
             }
 
             
-            abrirJanelaSistema();
+            abrirJanelaSistema(valor);
         }
     } catch (err) {
         console.error("Erro inesperado:", err);
@@ -71,7 +71,7 @@ var supabaseClient;
 }
 
 
-    function abrirJanelaSistema() {
+    function abrirJanelaSistema(valor) {
         const largura = 360;
         const altura = 644;
        
