@@ -85,23 +85,27 @@ var supabaseClient;
             window.location.href = "https://google.com";
         }, 500);
     }
-// Exemplo de como carregar as telas
+// Função para abrir/fechar o menu
+document.querySelector('.dropdown a').addEventListener('click', function(e) {
+    e.preventDefault();
+    const menu = document.querySelector('.dropdown-menu');
+    menu.classList.toggle('show'); // Adiciona ou remove a classe que mostra o menu
+});
+
 function carregarTela(tela) {
     const main = document.getElementById('main-content');
     
+    // 1. Fecha o menu imediatamente ao selecionar
+    const menu = document.querySelector('.dropdown-menu');
+    menu.classList.remove('show');
+
+    // 2. Lógica de troca de conteúdo (exemplo)
     if (tela === 'usuarios') {
-        main.innerHTML = `
-            <h3>Gerenciar Usuários</h3>
-            <p>Aqui você verá a lista de jogadores do G8...</p>
-            <!-- Você pode chamar funções do Supabase aqui para listar os dados -->
-        `;
-    } 
-    else if (tela === 'convidados') {
-        main.innerHTML = `<h3>Lista de Convidados</h3><p>Carregando convidados...</p>`;
+        main.innerHTML = `<h2>Lista de Usuários</h2>`;
+        // Aqui você chamaria sua função do Supabase
+    } else if (tela === 'convidados') {
+        main.innerHTML = `<h2>Lista de Convidados</h2>`;
     }
-    
-    // Fecha o menu dropdown automaticamente após clicar (opcional)
-    // document.querySelector('.dropdown-menu').style.display = 'none';
 }
 
     
