@@ -17,7 +17,7 @@ var supabaseClient;
     };
 
     async function handleLogin(valor) {
-    console.log("111. Botão clicado! -> ",valor); // Aparece no console
+    console.log("1. Botão clicado! -> ",valor); // Aparece no console
 
     if (!supabaseClient) {
         alert("Erro: O cliente Supabase ainda não foi inicializado.");
