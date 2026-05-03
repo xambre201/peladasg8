@@ -60,7 +60,6 @@ var supabaseClient;
                     document.getElementById('message').innerText = "Bem-vindo, " + data.user.email;
                 }
             }
-
             
             abrirJanelaSistema(valor);
         }
