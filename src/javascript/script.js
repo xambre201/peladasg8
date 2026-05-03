@@ -20,7 +20,7 @@ var supabaseClient;
     console.log("1. Botão clicado! -> ",valor); // Aparece no console
 
     if (!supabaseClient) {
-        alert("Erro: O cliente Supabase ainda não foi inicializado.");
+        // alert("Erro: O cliente Supabase ainda não foi inicializado.");
         return;
     }
 
@@ -29,7 +29,7 @@ var supabaseClient;
 
     console.log("2. Tentando logar o e-mail:", email, password);
 
-    alert("2. Tentando logar o e-mail:", email, password);
+    // alert("2. Tentando logar o e-mail:", email, password);
     try {
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
@@ -41,7 +41,7 @@ var supabaseClient;
             document.getElementById('message').textContent = "Erro: " + error.message;
         } else {
             console.log("3. Login com sucesso! Dados:", data);
-            alert("Sucesso! Abrindo o sistema...");
+            // alert("Sucesso! Abrindo o sistema...");
 
             // ... dentro do seu handleLogin após o sucesso ...
             if (data.user) {
@@ -64,7 +64,7 @@ var supabaseClient;
         }
     } catch (err) {
         console.error("Erro inesperado:", err);
-        alert("Ocorreu um erro técnico na tentativa de login.");
+        // alert("Ocorreu um erro técnico na tentativa de login.");
     }
 }
 
