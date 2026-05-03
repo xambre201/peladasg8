@@ -31,7 +31,7 @@ async function buscarMembro() {
     const { data, error } = await supabaseAdmin
         .from('g8_2_membros')
         .select('id, full_name, email')
-        .ilike('nickname', apelido) // Busca sem diferenciar maiúsculas/minúsculas
+        .ilike('apelido', apelido) // Busca sem diferenciar maiúsculas/minúsculas
         .single();
 
     if (error || !data) {
