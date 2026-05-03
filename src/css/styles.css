@@ -138,6 +138,32 @@ nav li a:hover{
     padding: 20px;
     box-sizing: border-box;
   }
+/* Container no topo */
+#login-container_base {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Alinha o conteúdo no topo do container */
+    justify-content: flex-start; 
+    
+    /* Largura fixa solicitada */
+    width: 360px;
+    /* Impede que o container transborde em telas muito pequenas */
+    max-width: 100%; 
+    
+    /* Centraliza o container horizontalmente na tela */
+    margin: 0 auto;   
+    
+    /* Remove espaços externos do topo e define respiro interno */
+    padding: 20px 15px;
+    box-sizing: border-box;
+
+    /* Garante que o container comece no topo da página */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
   /* Estilização dos Inputs */
   #login-container input {
