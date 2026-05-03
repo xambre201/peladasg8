@@ -17,7 +17,7 @@ var supabaseClient;
     };
 
     async function handleLogin(valor) {
-    console.log("111. Botão clicado! -> ",tela); // Aparece no console
+    console.log("111. Botão clicado! -> ",valor); // Aparece no console
 
     if (!supabaseClient) {
         alert("Erro: O cliente Supabase ainda não foi inicializado.");
@@ -53,7 +53,7 @@ var supabaseClient;
             
                 // 2. Redireciona para a página de administração
                 // Se quiser que apenas VOCÊ (admin) entre aqui, pode fazer:
-                if (data.user.email === 'xampiaca6654@gmail.com' and valor === 2) {
+                if (data.user.email === 'xampiaca6654@gmail.com' && valor === 2) {
                     window.location.href = 'admin.html';
                 } else {
                     // Se for um usuário comum, manda para outra tela ou dá boas-vindas
@@ -74,8 +74,9 @@ var supabaseClient;
     function abrirJanelaSistema(valor) {
         const largura = 360;
         const altura = 644;
-       
-        window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
+        if (valor === 1 ) {
+           window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
+        }
              
     }
 
@@ -87,15 +88,3 @@ var supabaseClient;
     }
     
 
-async function carregarUsuario() {
-    try {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (user) {
-            const nomeUsuario = user.user_metadata.full_name || "Jogador";
-            const campoNome = document.getElementById('user-name');
-            if (campoNome) campoNome.textContent = nomeUsuario;
-        }
-    } catch (e) {
-        console.log("Usuário não logado ou erro na sessão.");
-    }
-}
