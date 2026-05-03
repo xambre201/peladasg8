@@ -53,7 +53,7 @@ var supabaseClient;
             
                 // 2. Redireciona para a página de administração
                 // Se quiser que apenas VOCÊ (admin) entre aqui, pode fazer:
-                if (data.user.email === 'xampiaca6654@gmail.com' && valor === 2) {
+                if (data.user.email === 'grupog8kennedy@gmail.com' && valor === 2) {
                     window.location.href = 'admin.html';
                 } else {
                     // Se for um usuário comum, manda para outra tela ou dá boas-vindas
