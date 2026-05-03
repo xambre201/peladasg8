@@ -16,7 +16,7 @@ var supabaseClient;
         }
     };
 
-    async function handleLogin(tela) {
+    async function handleLogin() {
     console.log("111. Botão clicado! -> ",tela); // Aparece no console
 
     if (!supabaseClient) {
