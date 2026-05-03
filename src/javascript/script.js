@@ -89,5 +89,24 @@ var supabaseClient;
             window.location.href = "https://google.com";
         }, 500);
     }
+// Exemplo de como carregar as telas
+function carregarTela(tela) {
+    const main = document.getElementById('main-content');
+    
+    if (tela === 'usuarios') {
+        main.innerHTML = `
+            <h3>Gerenciar Usuários</h3>
+            <p>Aqui você verá a lista de jogadores do G8...</p>
+            <!-- Você pode chamar funções do Supabase aqui para listar os dados -->
+        `;
+    } 
+    else if (tela === 'convidados') {
+        main.innerHTML = `<h3>Lista de Convidados</h3><p>Carregando convidados...</p>`;
+    }
+    
+    // Fecha o menu dropdown automaticamente após clicar (opcional)
+    document.querySelector('.dropdown-menu').style.display = 'none';
+}
+
     
 
