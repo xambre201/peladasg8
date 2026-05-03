@@ -62,7 +62,7 @@ var supabaseClient;
             }
 
             
-            abrirJanelaSistema(tela);
+            abrirJanelaSistema();
         }
     } catch (err) {
         console.error("Erro inesperado:", err);
@@ -71,15 +71,12 @@ var supabaseClient;
 }
 
 
-    function abrirJanelaSistema(tela) {
+    function abrirJanelaSistema() {
         const largura = 360;
         const altura = 644;
-        if (tela === 'home') {
-            window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
-        } else {
-             window.open('admin.html', 'PeladasG8', `width=${largura},height=${altura}`);
-        }
-      
+       
+        window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
+             
     }
 
     function sairDaTela() {
