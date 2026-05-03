@@ -23,6 +23,12 @@ nav li a:hover{
     background-color: red;
 }
 
+.dropdown-menu{
+    position: absolute;
+    box-shadow: 0 0 2px black;
+    display: none;
+}
+
 .dropdown-menu a {
     cursor: pointer; /* Muda o mouse para "mãozinha" */
     display: flex;
