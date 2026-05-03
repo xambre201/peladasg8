@@ -71,10 +71,10 @@ var supabaseClient;
 }
 
 
-    function abrirJanelaSistema() {
+    function abrirJanelaSistema(tela) {
         const largura = 360;
         const altura = 644;
-        if (tela === 1) {
+        if (tela === 'home') {
             window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
         } else {
              window.open('admin.html', 'PeladasG8', `width=${largura},height=${altura}`);
