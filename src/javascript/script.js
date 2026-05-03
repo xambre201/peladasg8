@@ -101,7 +101,7 @@ function carregarTela(tela) {
     }
     
     // Fecha o menu dropdown automaticamente após clicar (opcional)
-    document.querySelector('.dropdown-menu').style.display = 'none';
+    // document.querySelector('.dropdown-menu').style.display = 'none';
 }
 
     
