@@ -28,7 +28,6 @@ var supabaseClient;
     const password = document.getElementById('password').value;
 
     console.log("2. Tentando logar o e-mail:", email, password);
-        
 
     alert("2. Tentando logar o e-mail:", email, password);
     try {
@@ -73,6 +72,11 @@ var supabaseClient;
     function abrirJanelaSistema(valor) {
         const largura = 360;
         const altura = 644;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          // Redireciona de volta para o login se a sessão expirou
+          window.location.href = 'index.html'; 
+        }
         if (valor === 1 ) {
            window.open('home.html', 'PeladasG8', `width=${largura},height=${altura}`);
         }
