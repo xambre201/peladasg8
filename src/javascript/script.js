@@ -105,8 +105,16 @@ function carregarTela(tela) {
         // Aqui você chamaria sua função do Supabase
     } else if (tela === 'convidados') {
         main.innerHTML = `<h2>Lista de Convidados</h2>`;
+    }  else if (tela === 'Presencas') {
+        main.innerHTML = `<h2>Confirme sua Presença</h2>`;
+    }  else if (tela === 'chegadas') {
+        main.innerHTML = `<h2>Ordem de Chegada</h2>`;
+    } else if (tela === 'noticias') {
+        main.innerHTML = `<h2>Noticias</h2>`;
     }
 }
+}
+
 
     
 
