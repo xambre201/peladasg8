@@ -29,7 +29,7 @@ async function buscarMembro() {
 
     // 1. Busca na sua tabela 'profiles' pelo apelido
     const { data, error } = await supabaseAdmin
-        .from('profiles')
+        .from('g8_2_membros')
         .select('id, full_name, email')
         .ilike('nickname', apelido) // Busca sem diferenciar maiúsculas/minúsculas
         .single();
