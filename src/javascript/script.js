@@ -113,7 +113,7 @@ function carregarTela(tela) {
         main.innerHTML = `<h2>Noticias</h2>`;
     }
 }
-}
+
 
 
     
